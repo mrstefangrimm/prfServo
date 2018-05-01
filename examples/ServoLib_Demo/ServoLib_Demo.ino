@@ -11,14 +11,14 @@ Released into the public domain.
 #include <Servo.h>
 #include "prfServo.h"
 
-// The template prfDemoImplServoShield is for demonstration purposes. You going to write your own implemention for your project.
+// The template prfDemoImplServoShield is for demonstration purposes. You going to write your own implementation for your project.
 prfDemoImplServoLib<Servo> impl;
 prfServo<uint32_t, float, uint8_t> servoAtPin9and10(&impl, 0x05); // 2 times '01'; 1st order; a + b*x
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   Serial.begin(9600);
-  Serial.println("Polynom Regression Fitted (prf) Servo test!");
+  Serial.println("Polynomial Regression Fit (prf) Servo test!");
   
   servoAtPin9and10.begin();
 }

@@ -31,17 +31,17 @@ Released into the public domain.
 #include <Adafruit_PWMServoDriver.h>
 #include "prfServo.h"
 
-// The template prfDemoImplServoShield is for demonstration purposes. You going to write your own implemention for your project.
+// The template prfDemoImplServoShield is for demonstration purposes. You going to write your own implementation for your project.
 prfDemoImplServoShield<Adafruit_PWMServoDriver> impl;
 // defaut template arguments: uint32_t, float, uint16_t, float
-prfServo<> servo(&impl, 0x55555555); // 16 times '01'; 1st order polynom; a + b*x
+prfServo<> servo(&impl, 0x55555555); // 16 times '01'; 1st order polynomial; a + b*x
 
 uint8_t servonum = 0;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   Serial.begin(9600);
-  Serial.println("Polynom Regression Fitted (prf) Servo test!");
+  Serial.println("Polynomial Regression Fit (prf) Servo test!");
   
   servo.begin();
 }

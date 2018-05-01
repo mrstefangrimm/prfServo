@@ -59,7 +59,7 @@ const uint8_t y[2][5] = { { 90, 170, 90, 10, 90 }, { 90, 170, 90, 10, 90 } };
 // the setup function runs once when you press reset or power the board
 void setup() {
   Serial.begin(9600);
-  Serial.println("Polynom Regression Fitted (prf) Servo test y = sin(x)!");
+  Serial.println("Polynomial Regression Fit (prf) Servo test y = sin(x)!");
 
   uint8_t val = 0x0F;
   Serial.println((uint8_t)(val << 6), BIN);
