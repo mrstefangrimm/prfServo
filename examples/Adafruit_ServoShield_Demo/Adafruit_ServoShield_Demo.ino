@@ -12,21 +12,21 @@ This file is a modification of the servo example distributed with the product me
 
   Pick one up today in the adafruit shop!
   ------> http://www.adafruit.com/products/815
-  
-  These drivers use I2C to communicate, 2 pins are required to  
+
+  These drivers use I2C to communicate, 2 pins are required to
   interface.
 
-  Adafruit invests time and resources providing this open source code, 
-  please support Adafruit and open-source hardware by purchasing 
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
   products from Adafruit!
 
-  Written by Limor Fried/Ladyada for Adafruit Industries.  
+  Written by Limor Fried/Ladyada for Adafruit Industries.
   BSD license, all text above must be included in any redistribution "
 
 Written by Stefan Grimm, 2018.
 Released into the public domain.
 */
- 
+
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 #include "prfServo.h"
@@ -42,13 +42,13 @@ uint8_t servonum = 0;
 void setup() {
   Serial.begin(9600);
   Serial.println("Polynomial Regression Fit (prf) Servo test!");
-  
+
   servo.begin();
 }
 
 // the loop function runs over and over again forever
 void loop() {
- 
+
   Serial.println(servonum);
   for (float f = 0; f < 1.0; f += 0.01) {
     servo.write(servonum, f);
@@ -56,7 +56,7 @@ void loop() {
   }
 
   delay(500);
-  
+
   for (float f = 1.0; f > 0.0; f -= 0.01) {
     servo.write(servonum, f);
     delay(1);
@@ -65,6 +65,6 @@ void loop() {
   delay(500);
 
   servonum++;
-  if (servonum > 7) servonum = 0;
+  if (servonum > 8) servonum = 0;
 }
 
