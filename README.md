@@ -9,15 +9,15 @@ Please have a look at the examples folder for several examples.
 
 ## Types
 ### Template parameters
-TORD : Type of the attribute to store the polynomial order. Depends on how many Servos you use: uint8_t : 1 - 4, uint16_t 1 - 8, uint32_t : 1 - 16
+TORD : Type of the attribute to store the polynomial order. Depends on how many Servos you use: uint8_t : 1 - 4, uint16_t : 1 - 8, uint32_t : 1 - 16
 
-TEXT : Type of the external (target) values. Choose float if your target position shall be e.g. 1.3 [mm/inch/..]. By choosing uint8_t you will save memory and still have 256 points. 
+TIN: Type of the internally used (target) values. Choose float if your target position shall be e.g. 1.3 [mm/inch/..]. By choosing uint8_t you will save memory and still have 256 points. 
 
-TINT : Type of the internal (Servo) values. PWM values are in the range of an uint16_t. Servo.h allows you to write degrees (0-180), but there is a mapping behind that you do not want to use anymore.
+TOUT: Type of the values that control the Servo. PWM values are in the range of an uint16_t. Servo.h allows you to write degrees (0-180), but there is a mapping behind that you do not want to use anymore.
 
 TMATH: Type for the polynomial fitting and the parameters. Has to be a floating-point number.
 
 ### Classes
-template<typename TINT, typename TMATH> class prfServoImplBase : Derive from this class an write your own implementation. Make sure TINT and TMATH are the same data types as used for prfServo.
+template<typename TOUT, typename TMATH> class prfServoImplBase : Derive from this class an write your own implementation. Make sure TOUT and TMATH are the same data types as used for prfServo.
 
-template<typename TORD, typename TEXT, typename TINT, typename TMATH> class prfServo : Instantiate an object of this an use it as your Servo library.
+template<typename TORD, typename TIN, typename TOUT, typename TMATH> class prfServo : Instantiate an object of this an use it as your Servo library.

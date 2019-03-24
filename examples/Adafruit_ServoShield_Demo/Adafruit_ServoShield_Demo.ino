@@ -23,7 +23,7 @@ This file is a modification of the servo example distributed with the product me
   Written by Limor Fried/Ladyada for Adafruit Industries.
   BSD license, all text above must be included in any redistribution "
 
-Written by Stefan Grimm, 2018.
+Written by Stefan Grimm, 2018-2019.
 Released into the public domain.
 */
 
@@ -33,7 +33,7 @@ Released into the public domain.
 
 // The template prfDemoImplServoShield is for demonstration purposes. You going to write your own implementation for your project.
 prfDemoImplServoShield<Adafruit_PWMServoDriver> impl;
-// defaut template arguments: uint32_t, float, uint16_t, float
+// default template arguments: uint32_t, float, uint16_t, float
 prfServo<> servo(&impl, 0x55555555); // 16 times '01'; 1st order polynomial; a + b*x
 
 uint8_t servonum = 0;

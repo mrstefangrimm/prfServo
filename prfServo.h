@@ -1,5 +1,5 @@
 /* prfServo.h - polynomial regression fit Servo (prfServo) Arduino Library 
- * Copyright (C) 2018 by Stefan Grimm
+ * Copyright (C) 2018-2019 by Stefan Grimm
  *
  * This Library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,13 +22,13 @@
 #include "Arduino.h"
 #include "PolynomialRegression.h"
 
-template<typename TINT = uint16_t, typename TMATH = float>
+template<typename TOUT = uint16_t, typename TMATH = float>
 class prfServoImplBase {
   public:
   prfServoImplBase() {}
   virtual void begin() = 0;
   virtual void end() {};
-  virtual void write(uint8_t num, TINT servoVal) = 0;
+  virtual void write(uint8_t num, TOUT servoVal) = 0;
   virtual void get(TMATH** params) const {}
   virtual void put(TMATH** params) {}
   private:
@@ -36,11 +36,11 @@ class prfServoImplBase {
   prfServoImplBase& operator=(const prfServoImplBase& s);
 };
 
-template<typename TORD = uint32_t, typename TEXT = float, typename TINT = uint16_t, typename TMATH = float>
+template<typename TORD = uint32_t, typename TIN = float, typename TOUT = uint16_t, typename TMATH = float>
 class prfServo {
   
   public:
-  prfServo(prfServoImplBase<TINT>* impl, TORD orderDesc) : _pImpl(impl), _orderDesc(orderDesc) {
+  prfServo(prfServoImplBase<TOUT, TMATH>* impl, TORD orderDesc) : _pImpl(impl), _orderDesc(orderDesc) {
   }
   ~prfServo() {
     _dispose();
@@ -64,18 +64,18 @@ class prfServo {
     }
   }
   
-  void calcParams(uint8_t num, int numSamples, const TEXT* positionValues, const TINT* servoValues) {
+  void calcParams(uint8_t num, int numSamples, const TIN* positionValues, const TOUT* servoValues) {
     
     // can be omitted with explicit template instantiation if values are float already.
-    float x[numSamples];
-    float y[numSamples];
+    TMATH x[numSamples];
+    TMATH y[numSamples];
     for (int n=0; n<numSamples; n++) {
       x[n] = positionValues[n];
       y[n] = servoValues[n];
     }
     int ord = _order(num);
     if (ord > 0) {
-      float coffs[ord + 1] = {0};
+      TMATH coffs[ord + 1] = {0};
       PolynomialRegression::fitIt(numSamples, x, y, ord, coffs);
       
       for (int n=0; n<=ord; n++) {
@@ -92,24 +92,23 @@ class prfServo {
     _pImpl->get(_params);
   }
   
-  void write(uint8_t num, TEXT pos) {
-    
+  void write(uint8_t num, TIN pos) {
     int ord = _order(num);
     switch (ord) {
       default:
       case 0: break;
       case 1: {
-        TINT servoVal = (TINT)(_params[num][0] + _params[num][1] * pos);
+        TOUT servoVal = (TOUT)(_params[num][0] + _params[num][1] * pos);
         _pImpl->write(num, servoVal);
         break;
       }        
       case 2: {
-        TINT servoVal = (TINT)(_params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2));
+        TOUT servoVal = (TOUT)(_params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2));
         _pImpl->write(num, servoVal);
         break;
       }      
       case 3: {
-        TINT servoVal = (TINT)(_params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2) + _params[num][3] * pow(pos, 3));
+        TOUT servoVal = (TOUT)(_params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2) + _params[num][3] * pow(pos, 3));
         _pImpl->write(num, servoVal);
         break;
       }      
@@ -121,19 +120,21 @@ class prfServo {
   prfServo& operator=(const prfServo& s);
   void _dispose() {
     if (_params != 0) {
-      for(int i = 0; i < N; ++i) {
-        delete[] (_params[i]);
+      for (int i = 0; i < N; ++i) {
+        delete(_params[i]);
       }
-      delete[] _params;
+      delete(_params);
     }
+    _params = 0;
   }  
   bool _isDisposed() const { return _params == 0; }
   int _order(int num) const { return ( (TORD)(_orderDesc << (2 * (N-1 - num)))) >> (2 * (N-1)); }
-  prfServoImplBase<TINT>* _pImpl;
+  prfServoImplBase<TOUT, TMATH>* _pImpl;
   TMATH** _params;
   const TORD _orderDesc;
   static const uint8_t N = sizeof(TORD) * 4;
-  
+  static const uint8_t M = 3;
+
 };
 
 template<typename T>
