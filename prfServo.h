@@ -94,25 +94,22 @@ class prfServo {
   
   void write(uint8_t num, TIN pos) {
     int ord = _order(num);
+
+    TMATH servoVal = _params[num][0];
     switch (ord) {
-      default:
+      default: return;
       case 0: break;
-      case 1: {
-        TOUT servoVal = (TOUT)(_params[num][0] + _params[num][1] * pos);
-        _pImpl->write(num, servoVal);
-        break;
-      }        
-      case 2: {
-        TOUT servoVal = (TOUT)(_params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2));
-        _pImpl->write(num, servoVal);
-        break;
-      }      
-      case 3: {
-        TOUT servoVal = (TOUT)(_params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2) + _params[num][3] * pow(pos, 3));
-        _pImpl->write(num, servoVal);
-        break;
-      }      
+      case 1:
+        servoVal = _params[num][0] + _params[num][1] * pos;
+        break;      
+      case 2:
+        servoVal = _params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2);
+        break;      
+      case 3:
+        servoVal = _params[num][0] + _params[num][1] * pos + _params[num][2] * pow(pos, 2) + _params[num][3] * pow(pos, 3);
+        break;      
     }
+    _pImpl->write(num, (TOUT)round(servoVal));
   }
   
   private:  
@@ -124,8 +121,8 @@ class prfServo {
         delete(_params[i]);
       }
       delete(_params);
+      _params = 0;
     }
-    _params = 0;
   }  
   bool _isDisposed() const { return _params == 0; }
   int _order(int num) const { return ( (TORD)(_orderDesc << (2 * (N-1 - num)))) >> (2 * (N-1)); }
@@ -133,7 +130,6 @@ class prfServo {
   TMATH** _params;
   const TORD _orderDesc;
   static const uint8_t N = sizeof(TORD) * 4;
-  static const uint8_t M = 3;
 
 };
 
