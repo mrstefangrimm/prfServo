@@ -41,7 +41,6 @@ class prfServo2 {
   prfServo2(prfServo2ImplBase<TOUT, TMATH>* impl, TORD orderDesc, TORD orderDescOffset)
     : _pImpl(impl), _orderDesc(orderDesc), _orderDescOffset(orderDescOffset) {
     memset(_currentPosIn, 0, N * sizeof(TIN));
-    memset(_currentPosOut, 0, N * sizeof(TOUT));
   }
   ~prfServo2() {
     _dispose();
@@ -112,11 +111,7 @@ class prfServo2 {
     }
 
     _currentPosIn[num] = pos;
-    bool execWrite = (!movesBack && servoVal > _currentPosOut[num]) || (movesBack && servoVal < _currentPosOut[num]);
-    if (execWrite) {
-      _currentPosOut[num] = (TOUT)round(servoVal);
-      _pImpl->write(num, _currentPosOut[num]);
-    }
+    _pImpl->write(num, (TOUT)round(servoVal));
   }
   
   private:  
@@ -148,7 +143,6 @@ class prfServo2 {
   const TORD _orderDescOffset;
   static const uint8_t N = sizeof(TORD) * 4;
   TIN _currentPosIn[N];
-  TOUT _currentPosOut[N];
 };
 
 #endif

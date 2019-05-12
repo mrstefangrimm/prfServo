@@ -361,13 +361,7 @@ test(test_4_Servos_polynomials_of_different_order_backwards_forwards) {
 
   // backward
   impl.writeStubVal = 0;
-  // (100 + 10*254) + 40 = 2680 is bigger than the current value, nothing is written to the servo
-  fourServos.write(0, 254);
-  assertEqual(0, impl.writeStubVal);
-
-  impl.writeStubVal = 0;
-  // (100 + 10*254) + 40 = 2650 is equal with the current value, nothing is written to the servo
-  fourServos.write(0, 251);
+  fourServos.write(2680, 254);
   assertEqual(0, impl.writeStubVal);
 
   impl.writeStubVal = 0;
@@ -380,14 +374,8 @@ test(test_4_Servos_polynomials_of_different_order_backwards_forwards) {
 
   // forward
   impl.writeStubVal = 0;
-  // (100 + 10*1) = 110 is smaller than the current value, nothing is written to the servo
   fourServos.write(0, 1);
-  assertEqual(0, impl.writeStubVal);
-
-  impl.writeStubVal = 0;
-  // (100 + 10*4) = 140 is equal with the current value, nothing is written to the servo
-  fourServos.write(0, 4);
-  assertEqual(0, impl.writeStubVal);
+  assertEqual(110, impl.writeStubVal);
 
   impl.writeStubVal = 0;
   fourServos.write(0, 5);
@@ -420,10 +408,8 @@ test(test_4_Servos_polynomials_of_different_order_backwards_forwards) {
   assertEqual(80, impl.writeStubVal);
   // backward
   impl.writeStubVal = 0;
-  // (80 + 10) = 90 is always bigger than 80, nothing is written to the servo
   fourServos.write(3, 3);
-  assertEqual(0, impl.writeStubVal);
-
+  assertEqual(90, impl.writeStubVal);
 }
 
 test(test_4_Servos_polynomials_of_different_order_backwards_forwards_inverse) {
@@ -477,7 +463,6 @@ test(test_4_Servos_polynomials_of_different_order_backwards_forwards_inverse) {
   assertEqual(100, impl.writeStubVal);
   // backward
   impl.writeStubVal = 0;
-  // (80 + 10) = 90 is always bigger than 80, nothing is written to the servo
   fourServos.write(3, 3);
   assertEqual(20, impl.writeStubVal);
 }

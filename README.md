@@ -18,7 +18,9 @@ prfServo was written in 2018 for the *[LnR Actuator](https://www.instructables.c
 In 2019, prfServo2 was added to not only support a correct transformation but also compensate the mechanical play. 
 
 ## Examples
-Please have a look at the examples folder for several examples.
+Please have a look at the examples folder for several examples. There is a 
+[video on youtube](https://youtu.be/7GVXzdbKuOM)
+ as illustration how the mechanical play is compensated (it is very boring to watch though).
 
 ### Memory Usage Example
  prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);
@@ -32,7 +34,7 @@ Memory usage: 340 Bytes
 Process time (10 writes): 2.53 ms
 
 prfServo2<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD, 0x00000000);
-Process time (10 writes): 2.81 ms
+Process time (10 writes): 2.75 ms
 
 
 ## Types
