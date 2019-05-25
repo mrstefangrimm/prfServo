@@ -1,39 +1,48 @@
 # prfServo
-Arduino Servo library is a stateless wrapper to control Servo motors. A polynomial transformation up to order 3 enables you to separate the internal target position and the value written to the Servo. Up to 16 Servos can be controlled. This library is wrapper for existing Servo libraries such as "Servo.h" or the Adafruit Servo Shield.
+Arduino Servo library is a stateless wrapper to control Servo motors. A polynomial transformation up to order 3 enables you to separate the internal target position and the value written to the Servo. Up to 16 Servos can be controlled. This library is wrapper for existing Servo libraries such as "Servo.h" or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
 
 y = a + bx + cx^2 + dx^3
 
 ## prfServo2
-Whereas prfServo is a linear transformation prfServo2 is nonlinear and stateful. It lets you compensate the mechanical play. If direction is changed and the current position is already "better" than the calculated position.
+Whereas prfServo is a linear transformation prfServo2 is nonlinear and stateful. It lets you compensate the mechanical play. If direction changes an offset polynomial is added.
 
- y =  
+ y' =  
 
-- a + bx + cx^2 + dx^3, if x > xh and y > yh
-- a + bx + cx^2 + dx^3 + e + fx + gx^2 + hx^3, if x < xh and y < yh
-- 0, if (x > xh and y < yh) or (x < xh and y > yh)
+- a + bx' + cx'^2 + dx'^3, if x' > x and y' > y
+- a + bx' + cx'^2 + dx'^3 + e + fx' + gx'^2 +hx'^3, if x' < x and y' < y
+
 
 ## Project History
-prfServo was written in 2018 for the *[LnR Actuator](https://www.instructables.com/id/Linear-and-Rotation-Actuator/)* for which the *[map function](https://www.arduino.cc/reference/en/language/functions/math/map/)* is not sufficient for the transformation of the Servo rotation to the shaft.
+prfServo was written in 2018 for the *[LnR Actuator](https://www.instructables.com/id/Linear-and-Rotation-Actuator/)* for which the *[map function](https://www.arduino.cc/reference/en/language/functions/math/map/)* is not sufficient for the transformation of the Servo's (rotational) motion to the shaft's linear motion.
 
-In 2019, prfServo2 was added to not only support a correct transformation but also compensate the mechanical play. 
+In 2019, prfServo2 was added to not only support a correct transformation but also compensate the mechanical play.
+
+##Installation
+1. Download the latest release from *[github](https://github.com/mrstefangrimm/prfServo/releases)*
+2. Unzip to the Arduino/libraries folder
+
 
 ## Examples
-Please have a look at the examples folder for several examples. There is a 
+Have a look at the examples folder for several examples. A 
 [video on youtube](https://youtu.be/7GVXzdbKuOM)
- as illustration how the mechanical play is compensated (it is very boring to watch though).
+ illustrates how the mechanical play is compensated (it is very boring to watch though).
 
 ### Memory Usage Example
- prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);
+`prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);`
+
 Memory usage: 210 Bytes
 
-prfServo2<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD, 0x00000000);
+`prfServo2<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD, 0x00000000);`
+
 Memory usage: 340 Bytes
 
 ### Processing Time Example
- prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);
+`prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);`
+
 Process time (10 writes): 2.53 ms
 
-prfServo2<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD, 0x00000000);
+`prfServo2<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD, 0x00000000);`
+
 Process time (10 writes): 2.75 ms
 
 
@@ -48,18 +57,18 @@ TOUT: Type of the values that control the Servo. PWM values are in the range of 
 TMATH: Type for the polynomial fitting and the parameters. Has to be a floating-point number.
 
 ### Classes
-template<typename TOUT, typename TMATH> 
-class prfServoImplBase : 
+`template<typename TOUT, typename TMATH> class prfServoImplBase` : 
 Derive from this class an write your own implementation. Make sure TOUT and TMATH are the same data types as used for prfServo.
 
-template<typename TORD, typename TIN, typename TOUT, typename TMATH>
-class prfServo : 
+`template<typename TORD, typename TIN, typename TOUT, typename TMATH> class prfServo` : 
 Instantiate an object of this an use it as your Servo library.
 
-template<typename TOUT, typename TMATH>
-class prfServo2ImplBase : 
+`template<typename TOUT, typename TMATH> class prfServo2ImplBase` : 
 Derive from this class an write your own implementation. Make sure TOUT and TMATH are the same data types as used for prfServo.
 
-template<typename TORD, typename TIN, typename TOUT, typename TMATH>
-class prfServo2 :
+`template<typename TORD, typename TIN, typename TOUT, typename TMATH> class prfServo2` :
 Instantiate an object of this an use it as your Servo library.
+
+## Change History
+###0.0.1.0 
+- Initial Version
