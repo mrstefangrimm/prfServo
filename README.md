@@ -1,5 +1,5 @@
 # prfServo
-Arduino Servo library is a stateless wrapper to control Servo motors. A polynomial transformation up to order 3 enables you to separate the internal target position and the value written to the Servo. Up to 16 Servos can be controlled. This library is wrapper for existing Servo libraries such as "Servo.h" or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
+Arduino Servo library is a stateless wrapper to control Servo motors. A polynomial transformation up to order 3 enables you to separate the internal target position and the value written to the Servo. Up to 16 Servos can be controlled. This library is wrapper for existing Servo libraries such as *[Servo](https://www.arduino.cc/en/Reference/Servo)* or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
 
 y = a + bx + cx^2 + dx^3
 
@@ -17,7 +17,7 @@ prfServo was written in 2018 for the *[LnR Actuator](https://www.instructables.c
 
 In 2019, prfServo2 was added to not only support a correct transformation but also compensate the mechanical play.
 
-##Installation
+## Installation
 1. Download the latest release from *[github](https://github.com/mrstefangrimm/prfServo/releases)*
 2. Unzip to the Arduino/libraries folder
 
@@ -27,7 +27,7 @@ Have a look at the examples folder for several examples. A
 [video on youtube](https://youtu.be/7GVXzdbKuOM)
  illustrates how the mechanical play is compensated (it is very boring to watch though).
 
-### Memory Usage Example
+### Memory Usage Examples
 `prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);`
 
 Memory usage: 210 Bytes
@@ -36,7 +36,7 @@ Memory usage: 210 Bytes
 
 Memory usage: 340 Bytes
 
-### Processing Time Example
+### Processing Time Examples
 `prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);`
 
 Process time (10 writes): 2.53 ms
@@ -48,27 +48,27 @@ Process time (10 writes): 2.75 ms
 
 ## Types
 ### Template parameters
-TORD : Type of the attribute to store the polynomial order. Depends on how many Servos you use: uint8_t : 1 - 4, uint16_t : 1 - 8, uint32_t : 1 - 16
+`TORD` : Type of the attribute to store the polynomial order. Depends on how many Servos you use: `uint8_t` : 1 - 4, `uint16_t` : 1 - 8, `uint32_t` : 1 - 16
 
-TIN: Type of the internally used (target) values. Choose float if your target position shall be e.g. 1.3 [mm/inch/..]. By choosing uint8_t you will save memory and still have 256 points. 
+`TIN`: Type of the internally used (target) values. Choose `float` if your internal target position shall be e.g. 1.3 [mm/inch/...]. By choosing `uint8_t` you save memory and still have 256 points. 
 
-TOUT: Type of the values that control the Servo. PWM values are in the range of an uint16_t. Servo.h allows you to write degrees (0-180), but there is a mapping behind that you do not want to use anymore.
+`TOUT`: Type of the values that control the Servo. PWM values are in the range of an `uint16_t`. *[Servo](https://www.arduino.cc/en/Reference/Servo)* allows you to write degrees (0-180), but there is a mapping behind that you do not want to use anymore.
 
-TMATH: Type for the polynomial fitting and the parameters. Has to be a floating-point number.
+`TMATH`: Type for the polynomial fitting and the parameters. Has to be a floating-point number.
 
 ### Classes
 `template<typename TOUT, typename TMATH> class prfServoImplBase` : 
-Derive from this class an write your own implementation. Make sure TOUT and TMATH are the same data types as used for prfServo.
+Derive from this class an write your own implementation. Make sure `TOUT` and `TMATH` have the same data type as the ones used for `prfServo`.
 
 `template<typename TORD, typename TIN, typename TOUT, typename TMATH> class prfServo` : 
 Instantiate an object of this an use it as your Servo library.
 
 `template<typename TOUT, typename TMATH> class prfServo2ImplBase` : 
-Derive from this class an write your own implementation. Make sure TOUT and TMATH are the same data types as used for prfServo.
+Derive from this class an write your own implementation. Make sure `TOUT` and `TMATH` have the same data type as the ones used for `prfServo`.
 
 `template<typename TORD, typename TIN, typename TOUT, typename TMATH> class prfServo2` :
 Instantiate an object of this an use it as your Servo library.
 
 ## Change History
-###0.0.1.0 
+### 0.0.1.0 
 - Initial Version
