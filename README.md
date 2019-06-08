@@ -69,6 +69,10 @@ Derive from this class an write your own implementation. Make sure `TOUT` and `T
 `template<typename TORD, typename TIN, typename TOUT, typename TMATH> class prfServo2` :
 Instantiate an object of this an use it as your Servo library.
 
+## License
+This Library is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+
 ## Change History
 ### 0.0.1.0 
 - Initial Version
