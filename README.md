@@ -1,10 +1,10 @@
 # prfServo
-Arduino Servo library is a stateless wrapper to control Servo motors. A polynomial transformation up to order 3 enables you to separate the internal target position and the value written to the Servo. Up to 16 Servos can be controlled. This library is wrapper for existing Servo libraries such as *[Servo](https://www.arduino.cc/en/Reference/Servo)* or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
+A stateless wrapper to control Servo motors. A polynomial transformation up to order 3 separates the internal target position and the value written to the Servo. Up to 16 Servos can be controlled. This library is wrapper for existing Servo libraries such as *[Servo](https://www.arduino.cc/en/Reference/Servo)* or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
 
 y = a + bx + cx^2 + dx^3
 
 ## prfServo2
-Whereas prfServo is a linear transformation prfServo2 is nonlinear and stateful. It lets you compensate the mechanical play. If direction changes an offset polynomial is added.
+Whereas prfServo uses a linear transformation prfServo2 is nonlinear and stateful. It lets you compensate the mechanical play. If direction changes an offset polynomial is added.
 
  y' =  
 
@@ -74,5 +74,8 @@ This Library is free software: you can redistribute it and/or modify it under th
 
 
 ## Change History
+### 0.0.1.1
+- Update documentation
+
 ### 0.0.1.0 
 - Initial Version
