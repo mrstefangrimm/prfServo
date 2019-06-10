@@ -21,11 +21,10 @@ In 2019, prfServo2 was added to not only support a correct transformation but al
 1. Download the latest release from *[github](https://github.com/mrstefangrimm/prfServo/releases)*
 2. Unzip to the Arduino/libraries folder
 
-
 ## Examples
 Have a look at the examples folder for several examples. A 
-[video on youtube](https://youtu.be/7GVXzdbKuOM)
- illustrates how the mechanical play is compensated (it is very boring to watch though).
+[video on youtube](https://youtu.be/CnMcMh8CgUc)
+ illustrates how the mechanical play is compensated.
 
 ### Memory Usage Examples
 `prfServo<uint32_t, uint8_t, uint16_t, double> tenServos(&impl, 0x0777DD);`
@@ -75,7 +74,7 @@ This Library is free software: you can redistribute it and/or modify it under th
 
 ## Change History
 ### 0.0.1.1
-- Update documentation
+- Update documentation and examples
 
 ### 0.0.1.0 
 - Initial Version

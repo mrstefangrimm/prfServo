@@ -1,10 +1,10 @@
 /*
-This is a demonstration program for one LnR-Actuator. It uses the Arduino
-Servo library 'Servo.h'.
+This is a demonstration program for one LnR-Actuator. 
+This example uses the Adafruit 16-channel PWM & Servo Shield
+-> http://www.adafruit.com/products/815It
 
-The program demonstrates sub-millimeter accuracy despite a mechanical play.
-
-https://www.instructables.com/id/Linear-and-Rotation-Actuator/
+The program demonstrates sub-millimeter accuracy of the LnR-Actuator
+-> https://www.instructables.com/id/Linear-and-Rotation-Actuator/
 
 Written by Stefan Grimm, 2019.
 Released into the public domain.
@@ -24,23 +24,33 @@ public:
   }
 
   void get(float** params, float** offsets) const {
+    // LnR-Actuator, measured values (lng)
+    // params
+    // 0  493
+    // 10 394
+    // 20 333
+    // 30 275
+    // 40 224
+    // offsets
+    // 0  7
+    // 10 4
+    // 20 5
+    // 30 4
+    // 40 5
+    // Calculated polynomial parameters on: https://arachnoid.com/polysolve/
+    params[0][0] = 4.9244285714285723e+002;
+    params[0][1] = -1.1620238095238097e+001;
+    params[0][2] = 2.2571428571428570e-001;
+    params[0][3] = -2.5833333333333333e-003;
+    offsets[0][0] = 6.8571428571428570e+000;
+    offsets[0][1] = -3.5476190476190480e-001;
+    offsets[0][2] = 1.4285714285714287e-002;
+    offsets[0][3] = -1.6666666666666666e-004;
 
-    params[0][0] = 4.6005714285714290e+002;
-    params[0][1] = -1.4799107142857226e+000;
-    params[0][2] = 4.0108816964286640e-003;
-    params[0][3] = -7.6293945312502400e-006;
-    offsets[0][0] = 1.9828571428571430e+001;
-    offsets[0][1] = -3.5267857142857140e-002;
-    offsets[0][2] = 1.7438616071428572e-004;
-
-     //Mechanical play of 8 millimeters
-    //params[0][0] = 4.3188571428571470e+002;
-    //params[0][1] = -1.3058035714286138e+000;
-    //params[0][2] = 3.4528459821433193e-003;
-    //params[0][3] = -7.6293945312512040e-006;
-    //offsets[0][0] = 1.1577142857142857e+002;
-    //offsets[0][1] = -7.0535714285714290e-001;
-    //offsets[0][2] = 2.0228794642857144e-003;
+    // transformation for the rotation is f(x) = x
+    params[1][0] = 0;
+    params[1][1] = 1;
+    offsets[1][0] = 0;    
   }
 
   void write(uint8_t num, uint16_t servoVal) {
@@ -53,12 +63,12 @@ private:
 
 Adafruit_PWMServoDriver pwm;
 ServoShieldPCA9685Linear impl(pwm);
-// forward polynomial: 0b00000011 => order of three
-// backward offset polynomial: 0b00000010 => order of two
-prfServo2<uint8_t, uint8_t, uint16_t, float> servoLib(&impl, 0b00000011, 0b00000010);
+// forward polynomial: 0b00000011 => order of three for longitudinal, order one for rotary motion
+// backward offset polynomial: 0b00000010 => order of two for longitudinal, order zero for rotary motion
+prfServo2<uint8_t, float, uint16_t, float> servoLib(&impl, 0b00000111, 0b00000011);
 
 int begin = 0;
-int end = 64;
+int end = 45;
 int direction = 1;
 
 void setup() {
@@ -68,43 +78,69 @@ void setup() {
   servoLib.begin();
 }
 
-void moveItF(int begin, int end, bool twoWay);
-void moveItB(int begin, int end, bool twoWay);
-
 void loop() {
-  moveItF(0,  64, true);
-  moveItF(0, 128, true);
-  moveItF(0, 192, true);
-  moveItF(0, 255, false);
+  servoLib.write(1, 200);
+  servoLib.write(0, 0.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
+
+  servoLib.write(1, 200);
+  servoLib.write(0, 10.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
   
-  moveItB(255, 191, true);
-  moveItB(255, 127, true);
-  moveItB(255,  64, true);
-  moveItB(255,   0, false);
-}
+  servoLib.write(1, 200);
+  servoLib.write(0, 20.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
 
-void moveItF(int begin, int end, bool twoWay) {
-  for (int n = begin; n < end; n++) {
-    servoLib.write(0, n);
-    delay(50);
-  }
-  if (twoWay) {
-    for (int n = end; n > begin; n--) {
-      servoLib.write(0, n);
-      delay(50);
-    }
-  }
-}
+  servoLib.write(1, 200);
+  servoLib.write(0, 30.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
 
-void moveItB(int begin, int end, bool twoWay) {
-  for (int n = begin; n > end; n--) {
-    servoLib.write(0, n);
-    delay(50);
-  }
-  if (twoWay) {
-    for (int n = end; n < begin; n++) {
+  servoLib.write(1, 200);
+  servoLib.write(0, 40.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
+ 
+  servoLib.write(1, 200);
+  servoLib.write(0, 30.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
+
+  servoLib.write(1, 200);
+  servoLib.write(0, 20.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
+
+  servoLib.write(1, 200);
+  servoLib.write(0, 10.0);
+  delay(1000);
+  servoLib.write(1, 372);
+  delay(1000);
+
+  for (int n = 0; n < 10; n++) {
+    servoLib.write(1, 372);
+    delay(500);
+    for (float n = 10.0; n < 20.0; n += 0.2) {
       servoLib.write(0, n);
-      delay(50);
+      delay(10);
     }
+    delay(500);
+    servoLib.write(1, 200);
+    for (float n = 20.0; n > 10.0; n -= 0.2) {
+      servoLib.write(0, n);
+      delay(10);
+    }
+    delay(500);
   }
+  delay(500);
 }
