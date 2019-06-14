@@ -162,6 +162,9 @@ class prfDemoImplServoLib :  public prfServoImplBase<uint8_t> {
   void begin() {
     pinMode(9, OUTPUT);
     pinMode(10, OUTPUT);
+
+    _servo0.attach(9);
+    _servo0.attach(10);
   }
 
   void get(float** params) const {
@@ -173,16 +176,14 @@ class prfDemoImplServoLib :  public prfServoImplBase<uint8_t> {
   
   void write(uint8_t num, uint8_t servoVal) {
     if (num == 0) {
-      servo.attach(9);
+      _servo0.write(servoVal);
     } else {
-      servo.attach(10);
-    }    
-    servo.write(servoVal);
-    delay(15);
+      _servo1.write(servoVal);
+    }
   }
   
   private:
-  T servo;
+  T _servo0, _servo1;
 };
 
 #endif
