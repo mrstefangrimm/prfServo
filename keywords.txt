@@ -1,5 +1,7 @@
 prfServo	KEYWORD1
 prfServo2	KEYWORD1
+prfServo3	KEYWORD1
 prfServoImplBase	KEYWORD1
 prfServo2ImplBase	KEYWORD1
+prfServo3ImplBase	KEYWORD1
 calcParams	KEYWORD2
