@@ -1,10 +1,11 @@
 /*
-This is a demonstration program for one LnR-Actuator. 
-This example uses the Adafruit 16-channel PWM & Servo Shield
--> http://www.adafruit.com/products/815It
-
+This is a demonstration program for one LnR-Actuator.
 The program demonstrates sub-millimeter accuracy of the LnR-Actuator
+-> https://youtu.be/CnMcMh8CgUc
 -> https://www.instructables.com/id/Linear-and-Rotation-Actuator/
+
+This example uses the Adafruit 16-channel PWM & Servo Shield
+-> https://www.adafruit.com/product/1411
 
 Written by Stefan Grimm, 2019.
 Released into the public domain.
@@ -64,7 +65,7 @@ private:
 Adafruit_PWMServoDriver pwm;
 ServoShieldPCA9685Linear impl(pwm);
 // forward polynomial: 0b00000011 => order of three for longitudinal, order one for rotary motion
-// backward offset polynomial: 0b00000010 => order of three for longitudinal, order zero for rotary motion
+// backward offset polynomial: 0b00000011 => order of three for longitudinal, order zero for rotary motion
 prfServo2<uint8_t, float, uint16_t, float> servoLib(&impl, 0b00000111, 0b00000011);
 
 void setup() {
