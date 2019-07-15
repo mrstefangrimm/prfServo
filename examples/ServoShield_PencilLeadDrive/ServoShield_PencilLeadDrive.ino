@@ -1,11 +1,11 @@
 /*
-The Arduino program for the Pencil Lead Drive. 
-This example uses the Adafruit 16-channel PWM & Servo Shield
--> http://www.adafruit.com/products/815It
-
-The program demonstrates sub-millimeter accuracy of the LnR-Actuator by using the prfServo library.
+The Arduino program for the Pencil Lead Drive.
+The program demonstrates sub-millimeter accuracy of the LnR Actuator by using the prfServo library.
+-> https://youtu.be/KJdUGMOCTKk
 -> https://www.instructables.com/id/Linear-and-Rotation-Actuator/
--> https://github.com/mrstefangrimm/prfServo
+
+This example uses the Adafruit 16-channel PWM & Servo Shield
+-> https://www.adafruit.com/product/1411
 
 Written by Stefan Grimm, 2019.
 Released into the public domain.
@@ -45,12 +45,12 @@ public:
     offsets[0][3] = 5.7777777777775020e-003;
 
     // Rotary Right
-    //   0 590
-    //  45 478
-    //  90 366
-    // 135 276
-    // 180 180
-    params[1][0] = 5.9071428571428580e+002;
+    //   0 610
+    //  45 498
+    //  90 386
+    // 135 296
+    // 180 200
+    params[1][0] = 6.1071428571428580e+002;
     params[1][1] = -2.7095238095238145e+000;
     params[1][2] = 3.3862433862434362e-003;
     params[1][3] = -5.4869684499315375e-006;
@@ -135,7 +135,7 @@ void setup() {
   servoLib.write(LRTN, 0);
   delay(1000);
   servoLib.write(RLNG, 12);
-  servoLib.write(LLNG, 16);
+  servoLib.write(LLNG, 12);
   delay(500);
 
   Serial.print("Send any character to start!");
@@ -144,13 +144,14 @@ void setup() {
     ch = Serial.read();
     delay(100);
   } while (ch == -1 );
+  delay(5000);
 }
 
 void loop() {
   for (int a = 0; a < 180; a += 1) {
     float angle = a / 180.0 * PI;
     float lngR = 12 + (sin(angle) * 12);
-    float lngL = 16 - (sin(angle) * 12);
+    float lngL = 12 - (sin(angle) * 12);
     servoLib.write(RLNG, lngR);
     servoLib.write(LLNG, lngL);
     servoLib.write(RRTN, a);
@@ -160,7 +161,7 @@ void loop() {
   for (int a = 180; a > 0; a -= 1) {
     float angle = a / 180.0 * PI;
     float lngR = 12 - (sin(angle) * 12);
-    float lngL = 16 + (sin(angle) * 12);
+    float lngL = 12 + (sin(angle) * 12);
     servoLib.write(RLNG, lngR);
     servoLib.write(LLNG, lngL);
     servoLib.write(RRTN, a);

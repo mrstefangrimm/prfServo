@@ -1,6 +1,6 @@
 /*
 This is a demonstration program for one LnR-Actuator.
-The program demonstrates sub-millimeter accuracy of the LnR-Actuator
+The program demonstrates sub-millimeter accuracy of the LnR Actuator
 -> https://youtu.be/CnMcMh8CgUc
 -> https://www.instructables.com/id/Linear-and-Rotation-Actuator/
 
@@ -16,9 +16,6 @@ Released into the public domain.
 
 class ServoShieldPCA9685Linear : public prfServo2ImplBase<uint16_t, float> {
 public:
-  ServoShieldPCA9685Linear(Adafruit_PWMServoDriver& pwm) : _pwm(pwm) {
-  }
-
   void begin() {
     _pwm.begin();
     _pwm.setPWMFreq(60);
@@ -59,11 +56,10 @@ public:
   }
 
 private:
-  Adafruit_PWMServoDriver& _pwm;
+  Adafruit_PWMServoDriver _pwm;
 };
 
-Adafruit_PWMServoDriver pwm;
-ServoShieldPCA9685Linear impl(pwm);
+ServoShieldPCA9685Linear impl;
 // forward polynomial: 0b00000011 => order of three for longitudinal, order one for rotary motion
 // backward offset polynomial: 0b00000011 => order of three for longitudinal, order zero for rotary motion
 prfServo2<uint8_t, float, uint16_t, float> servoLib(&impl, 0b00000111, 0b00000011);
