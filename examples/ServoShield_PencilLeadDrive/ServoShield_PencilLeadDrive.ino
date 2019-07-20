@@ -118,7 +118,7 @@ private:
 ServoShieldPCA9685Linear impl;
 prfServo2<uint8_t, float, uint16_t, float> servoLib(&impl, 0b11111111, 0b11111111);
 
-enum ServoPos {
+enum ServoNum {
   RLNG = 0,
   RRTN,
   LLNG,
@@ -148,24 +148,24 @@ void setup() {
 }
 
 void loop() {
-  for (int a = 0; a < 180; a += 1) {
-    float angle = a / 180.0 * PI;
-    float lngR = 12 + (sin(angle) * 12);
-    float lngL = 12 - (sin(angle) * 12);
-    servoLib.write(RLNG, lngR);
-    servoLib.write(LLNG, lngL);
-    servoLib.write(RRTN, a);
-    servoLib.write(LRTN, a);
+  for (int angleDeg = 0; angleDeg < 180; angleDeg += 1) {
+    float angleRad = angleDeg / 180.0 * PI;
+    float rightsideLngMM = 12 + (sin(angleRad) * 12); // Sin wave between 0 and 24 mm
+    float leftsideLngMM = 12 - (sin(angleRad) * 12); // Sin wave between 0 and 24 mm
+    servoLib.write(RLNG, rightsideLngMM);
+    servoLib.write(LLNG, leftsideLngMM);
+    servoLib.write(RRTN, angleDeg);
+    servoLib.write(LRTN, angleDeg);
     delay(10);
   }
-  for (int a = 180; a > 0; a -= 1) {
-    float angle = a / 180.0 * PI;
-    float lngR = 12 - (sin(angle) * 12);
-    float lngL = 12 + (sin(angle) * 12);
+  for (int angleDeg = 180; angleDeg > 0; angleDeg -= 1) {
+    float angleRad = angleDeg / 180.0 * PI;
+    float lngR = 12 - (sin(angleRad) * 12);
+    float lngL = 12 + (sin(angleRad) * 12);
     servoLib.write(RLNG, lngR);
     servoLib.write(LLNG, lngL);
-    servoLib.write(RRTN, a);
-    servoLib.write(LRTN, a);
+    servoLib.write(RRTN, angleDeg);
+    servoLib.write(LRTN, angleDeg);
     delay(10);
   }
 }

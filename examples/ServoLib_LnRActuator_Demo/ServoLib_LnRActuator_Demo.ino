@@ -18,7 +18,6 @@ public:
   void begin() {
     pinMode(8, OUTPUT);
     pinMode(9, OUTPUT);
-
     _servo0.attach(8);
     _servo1.attach(9);
   }
@@ -53,11 +52,10 @@ public:
   }
 
   void write(uint8_t num, uint16_t servoVal) {
-    if (num == 0) {
-      _servo0.write(servoVal);
-    } 
-    else if (num == 1) {
-      _servo1.write(servoVal);
+    switch (num) {
+      default: break;
+      case 0: _servo0.write(servoVal); break;
+      case 1: _servo1.write(servoVal); break;
     }
   }
 

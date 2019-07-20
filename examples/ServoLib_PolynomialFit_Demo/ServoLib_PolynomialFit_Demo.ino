@@ -16,6 +16,8 @@ class prfImplServoLib :  public prfServoImplBase<uint8_t> {
   void begin() {
     pinMode(9, OUTPUT);
     pinMode(10, OUTPUT);
+    _servo0.attach(9);
+    _servo1.attach(10);
   }
 
   void put(float** params) {
@@ -37,20 +39,18 @@ class prfImplServoLib :  public prfServoImplBase<uint8_t> {
 
   void write(uint8_t num, uint8_t servoVal) {
     // Serial.print(num); Serial.print(" "); Serial.println(servoVal);
-    if (num == 0) {
-      servo.attach(9);
-    } else {
-      servo.attach(10);
-    }    
-    servo.write(servoVal);
-    delay(15);
+    switch (num) {
+      default: break;
+      case 0: _servo0.write(servoVal); break;
+      case 1: _servo1.write(servoVal); break;
+    }
   }
   
   private:
-  Servo servo;
+  Servo _servo0, _servo1;
 };
-prfImplServoLib impl;
 
+prfImplServoLib impl;
 prfServo<uint8_t, uint16_t, uint8_t> servoAtPin9and10(&impl, 0x0F); // 0x0F = 2 times '11'; 3st order; a + b*x + c*x^2
 
 const uint16_t x[2][5] = { { 0, 64, 128, 192, 256 }, { 0, 64, 128, 192, 256 } }; 
@@ -83,4 +83,3 @@ void loop() {
   }
   
 }
-
