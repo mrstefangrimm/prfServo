@@ -115,15 +115,11 @@ Whereas the class `prfServo` is stateless and uses a linear transformation, the 
 
 **prfServo**
 
-
-![equation](http://bit.ly/2Z1Lnj9)
-
+![y_{n} = p_{n,0} + p_{n,1}x_{n} + p_{n,2}x_{n}^{2} + p_{n,3}x_{n}^{3}](res/Tex2Img_1563614209.png)
 
 **prfServo2**
 
-
-[equation](http://www.sciweavers.org/tex2img.php?eq=y_%7Bn%7D%20%3D%20%5Cbegin%7Bcases%7Dp_%7Bn%2C0%7D%20%2B%20p_%7Bn%2C1%7Dx_%7Bn%7D%20%2B%20p_%7Bn%2C2%7Dx_%7Bn%7D%5E%7B2%7D%20%20%2B%20p_%7Bn%2C3%7Dx_%7Bn%7D%5E%7B3%7D%20%26%20x_%7Bn%7D%20%3E%20x_%7Bn-1%7D%5C%5Cp_%7Bn%2C0%7D%20%2B%20p_%7Bn%2C1%7Dx_%7Bn%7D%20%2B%20p_%7Bn%2C2%7Dx_%7Bn%7D%5E%7B2%7D%20%20%2B%20p_%7Bn%2C3%7Dx_%7Bn%7D%5E%7B3%7D%20%2B%20o_%7Bn%2C0%7D%20%2B%20o_%7Bn%2C1%7Dx_%7Bn%7D%20%2B%20o_%7Bn%2C2%7Dx_%7Bn%7D%5E%7B2%7D%20%20%2B%20o_%7Bn%2C3%7Dx_%7Bn%7D%5E%7B3%7D%26%20x_%7Bn%7D%20%3C%20x_%7Bn-1%7D%5Cend%7Bcases%7D%20%0A%0A%0A&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
-
+![ y_{n} = \begin{cases}p_{n,0} + p_{n,1}x_{n} + p_{n,2}x_{n}^{2} + p_{n,3}x_{n}^{3} & x_{n} > x_{n-1}\\p_{n,0} + p_{n,1}x_{n} + p_{n,2}x_{n}^{2} + p_{n,3}x_{n}^{3} + o_{n,0} + o_{n,1}x_{n} + o_{n,2}x_{n}^{2} + o_{n,3}x_{n}^{3} & x_{n} < x_{n-1}\end{cases}](res/Tex2Img_1563614995.png)
 
 
 ### Template parameters
