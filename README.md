@@ -1,6 +1,6 @@
 # prfServo
 
-Arduino library to synchronously move multiple servo motors. A polynomial transformation up to a degree of 3 transforms the used target position to the value written to the servo. The prfServo library is a wrapper for existing servo libraries such as *[Servo](https://www.arduino.cc/en/Reference/Servo)* or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
+Arduino library to control multiple servo motors. A polynomial transformation up to a degree of 3 transforms the used target position to the value written to the servo. The prfServo library is a wrapper for existing servo libraries such as *[Servo](https://www.arduino.cc/en/Reference/Servo)* or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
 
 ## Motivation
 Each servo motor you buy has its own characteristics. prfServo allows you to do a software calibration and accurately and synchronously move multiple servo motors.
