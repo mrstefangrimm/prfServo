@@ -1,7 +1,7 @@
 /*
 Unit tests for the prfServo2 Arduino library
 
-Written by Stefan Grimm, 2019.
+Written by Stefan Grimm, 2019 - 2021.
 Released into the public domain.
 */
 
@@ -14,9 +14,9 @@ class prfServoImplMockUnit16 : public prfServo2ImplBase<uint16_t, double>
 {
 public:
 
-  void(*getStub)(double** params, double** offsets);
-  void get(double** params, double** offsets) const override {
-    getStub(params, offsets);
+  void(*getStub)(double** params, double** backlashes);
+  void get(double** params, double** backlashes) const override {
+    getStub(params, backlashes);
   }
 
   void begin() override {
@@ -52,7 +52,7 @@ public:
 
 };
 
-void getResults4Servo(double** params, double** offsets) {
+void getResults4Servo(double** params, double** backlashes) {
   params[0][0] = 100;
   params[0][1] = 10;
   params[1][0] = 100;
@@ -63,30 +63,30 @@ void getResults4Servo(double** params, double** offsets) {
   params[2][2] = 5;
   params[2][3] = 2;
   params[3][0] = 80;
-  offsets[0][0] = 40;
-  offsets[1][0] = 30;
-  offsets[2][0] = 20;
-  offsets[3][0] = 10;
+  backlashes[0][0] = 40;
+  backlashes[1][0] = 30;
+  backlashes[2][0] = 20;
+  backlashes[3][0] = 10;
 }
 
-void getResults4ServoInverse(double** params, double** offsets) {
+void getResults4ServoInverse(double** params, double** backlashes) {
   params[0][0] = 400;
   params[1][0] = 300;
   params[2][0] = 200;
   params[3][0] = 100;
-  offsets[0][0] = -100;
-  offsets[0][1] = -10;
-  offsets[1][0] = -100;
-  offsets[1][1] = -10;
-  offsets[1][2] = -5;
-  offsets[2][0] = -100;
-  offsets[2][1] = -10;
-  offsets[2][2] = -5;
-  offsets[2][3] = -2;
-  offsets[3][0] = -80;
+  backlashes[0][0] = -100;
+  backlashes[0][1] = -10;
+  backlashes[1][0] = -100;
+  backlashes[1][1] = -10;
+  backlashes[1][2] = -5;
+  backlashes[2][0] = -100;
+  backlashes[2][1] = -10;
+  backlashes[2][2] = -5;
+  backlashes[2][3] = -2;
+  backlashes[3][0] = -80;
 }
 
-void getResults4ServoNegativeoffsets(double** params, double** offsets) {
+void getResults4ServoNegativeBacklashes(double** params, double** backlashes) {
   params[0][0] = 100;
   params[0][1] = 10;
   params[1][0] = 100;
@@ -95,13 +95,13 @@ void getResults4ServoNegativeoffsets(double** params, double** offsets) {
   params[2][1] = 10;
   params[3][0] = 100;
   params[3][1] = 10;
-  offsets[0][0] = -0;
-  offsets[1][0] = -10;
-  offsets[2][0] = -20;
-  offsets[3][0] = -30;
+  backlashes[0][0] = -0;
+  backlashes[1][0] = -10;
+  backlashes[2][0] = -20;
+  backlashes[3][0] = -30;
 }
 
-void getResults8Servo(double** params, double** offsets) {
+void getResults8Servo(double** params, double** backlashes) {
   params[0][0] = 100;
   params[0][1] = 10;
   params[1][0] = 100;
@@ -118,17 +118,17 @@ void getResults8Servo(double** params, double** offsets) {
   params[6][1] = 10;
   params[7][0] = 100;
   params[7][1] = 10;
-  offsets[0][0] = 10;
-  offsets[1][0] = 10;
-  offsets[2][0] = 10;
-  offsets[3][0] = 10;
-  offsets[4][0] = 10;
-  offsets[5][0] = 10;
-  offsets[6][0] = 10;
-  offsets[7][0] = 10;
+  backlashes[0][0] = 10;
+  backlashes[1][0] = 10;
+  backlashes[2][0] = 10;
+  backlashes[3][0] = 10;
+  backlashes[4][0] = 10;
+  backlashes[5][0] = 10;
+  backlashes[6][0] = 10;
+  backlashes[7][0] = 10;
 }
 
-void getResults16Servo(double** params, double** offsets) {
+void getResults16Servo(double** params, double** backlashes) {
   params[0][0] = 100;
   params[0][1] = 10;
   params[1][0] = 100;
@@ -161,78 +161,78 @@ void getResults16Servo(double** params, double** offsets) {
   params[14][1] = 10;
   params[15][0] = 100;
   params[15][1] = 10;
-  offsets[0][0] = 10;
-  offsets[1][0] = 10;
-  offsets[2][0] = 10;
-  offsets[3][0] = 10;
-  offsets[4][0] = 10;
-  offsets[5][0] = 10;
-  offsets[6][0] = 10;
-  offsets[7][0] = 10;
-  offsets[8][0] = 10;
-  offsets[9][0] = 10;
-  offsets[10][0] = 10;
-  offsets[11][0] = 10;
-  offsets[12][0] = 10;
-  offsets[13][0] = 10;
-  offsets[14][0] = 10;
-  offsets[15][0] = 10;
+  backlashes[0][0] = 10;
+  backlashes[1][0] = 10;
+  backlashes[2][0] = 10;
+  backlashes[3][0] = 10;
+  backlashes[4][0] = 10;
+  backlashes[5][0] = 10;
+  backlashes[6][0] = 10;
+  backlashes[7][0] = 10;
+  backlashes[8][0] = 10;
+  backlashes[9][0] = 10;
+  backlashes[10][0] = 10;
+  backlashes[11][0] = 10;
+  backlashes[12][0] = 10;
+  backlashes[13][0] = 10;
+  backlashes[14][0] = 10;
+  backlashes[15][0] = 10;
 }
 
-void getResults10Servo(double** params, double** offsets) {
+void getResults10Servo(double** params, double** backlashes) {
   // LURTN
   params[0][0] = 1.2942268654268088e+002;
   params[0][1] = 1.6668375402407262e+000;
-  offsets[0][0] = 10;
+  backlashes[0][0] = 10;
   // LULNG
   params[1][0] = 5.5452380952380930e+002;
   params[1][1] = -2.6484593837534930e+000;
   params[1][2] = 1.1929477673422232e-002;
   params[1][3] = -2.7138883234954693e-005;
-  offsets[1][0] = 10;
+  backlashes[1][0] = 10;
   // LLRTN
   params[2][0] = 1.5442914556378040e+002;
   params[2][1] = 1.5882527835305206e+000;
-  offsets[2][0] = 10;
+  backlashes[2][0] = 10;
   // LLLNG
   params[3][0] = 1.3666666666666668e+002;
   params[3][1] = 2.8253968253968250e+000;
   params[3][2] = -1.3016971494480146e-002;
   params[3][3] = 3.0757400999615536e-005;
-  offsets[3][0] = 10;
+  backlashes[3][0] = 10;
   // RLLNG
   params[4][0] = 5.7880952380952260e+002;
   params[4][1] = -2.3641456582632174e+000;
   params[4][2] = 9.3590377327392710e-003;
   params[4][3] = -2.1711106587961670e-005;
-  offsets[4][0] = 10;
+  backlashes[4][0] = 10;
   // RLRTN
   params[5][0] = 1.3774938998134064e+002;
   params[5][1] = 1.5490885603559636e+000;
-  offsets[5][0] = 10;
+  backlashes[5][0] = 10;
   // RULNG
   params[6][0] = 1.8559523809523685e+002;
   params[6][1] = 2.1031746031746907e+000;
   params[6][2] = -7.4147305981224840e-003;
   params[6][3] = 1.8092588823305492e-005;
-  offsets[6][0] = 10;
+  backlashes[6][0] = 10;
   // RURTN
   params[7][0] = 1.6024944124341286e+002;
   params[7][1] = 1.6079886813344540e+000;
-  offsets[7][0] = 10;
+  backlashes[7][0] = 10;
   // GALNG
   params[8][0] = 5.3464285714285590e+002;
   params[8][1] = -2.8109243697478114e+000;
   params[8][2] = 1.3346515076618000e-002;
   params[8][3] = -3.2566659881943620e-005;
-  offsets[8][0] = 10;
+  backlashes[8][0] = 10;
   // GARTN
   params[9][0] = 1.4526246180975622e+002;
   params[9][1] = 1.5686194098710244e+000;
-  offsets[9][0] = 10;
+  backlashes[9][0] = 10;
 }
 
-void getResults4Servos_SignedOutcome(float** params, float** offsets) {
+void getResults4Servos_SignedOutcome(float** params, float** backlashes) {
   // https://www.mathportal.org/calculators/polynomials-solvers/polynomial-graphing-calculator.php
   params[0][0] = 100;
   params[0][1] = 10;
@@ -246,10 +246,10 @@ void getResults4Servos_SignedOutcome(float** params, float** offsets) {
   params[2][3] = 1;
   params[3][0] = -100;
   params[3][1] = 10;
-  offsets[0][0] = 15;
-  offsets[1][0] = 15;
-  offsets[2][0] = 15;
-  offsets[3][0] = 15;
+  backlashes[0][0] = 15;
+  backlashes[1][0] = 15;
+  backlashes[2][0] = 15;
+  backlashes[3][0] = 15;
 }
 
 test(test_4_Servos_polynomials_of_different_order_forwards) {
@@ -467,10 +467,10 @@ test(test_4_Servos_polynomials_of_different_order_backwards_forwards_inverse) {
   assertEqual(20, impl.writeStubVal);
 }
 
-test(test_4_Servos_negative_offsets_backwards) {
+test(test_4_Servos_negative_backlashes_backwards) {
   prfServoImplMockUnit16 impl;
   // Servo 0-7: order 1, 100 + 10*x
-  impl.getStub = &getResults4ServoNegativeoffsets;
+  impl.getStub = &getResults4ServoNegativeBacklashes;
 
   prfServo2<uint8_t, uint8_t, uint16_t, double> fourServos(&impl, 0x55, 0x00);
 
@@ -573,7 +573,7 @@ test(test_4_Servos_float_in_int32_out_float_math_forwards_backwards) {
   fourServos.begin();
 
   // Set servos to a value below the tested range
-  // It is going backwards (e.g. uses the offset) because the initial value is zero.
+  // It is going backwards (e.g. uses the backlash) because the initial value is zero.
   for (int n = 0; n < 4; n++) {
     fourServos.write(n, -3);
   }

@@ -7,7 +7,7 @@ The program demonstrates sub-millimeter accuracy of the LnR Actuator by using th
 This example uses the Adafruit 16-channel PWM & Servo Shield
 -> https://www.adafruit.com/product/1411
 
-Written by Stefan Grimm, 2019.
+Written by Stefan Grimm, 2019 - 2021.
 Released into the public domain.
 */
 
@@ -21,7 +21,7 @@ public:
     _pwm.setPWMFreq(60);
   }
   
-  void get(float** params, float** offsets) const {
+  void get(float** params, float** backlashes) const {
     // Longitudinal Right
     //  0 360
     //  5 388
@@ -39,10 +39,10 @@ public:
     // 15 -4
     // 20 -4
     // 25  8
-    offsets[0][0] = -6.5238095238093960e+000;
-    offsets[0][1] = 1.6174603174602150e+000;
-    offsets[0][2] = -1.8666666666665600e-001;
-    offsets[0][3] = 5.7777777777775020e-003;
+    backlashes[0][0] = -6.5238095238093960e+000;
+    backlashes[0][1] = 1.6174603174602150e+000;
+    backlashes[0][2] = -1.8666666666665600e-001;
+    backlashes[0][3] = 5.7777777777775020e-003;
 
     // Rotary Right
     //   0 610
@@ -59,10 +59,10 @@ public:
     //  90 8
     // 135 6
     // 180 2
-    offsets[1][0] = 3.7428571428571430e+000;
-    offsets[1][1] = -4.7089947089947100e-002;
-    offsets[1][2] = 1.5167548500881833e-003;
-    offsets[1][3] = -7.3159579332418835e-006;
+    backlashes[1][0] = 3.7428571428571430e+000;
+    backlashes[1][1] = -4.7089947089947100e-002;
+    backlashes[1][2] = 1.5167548500881833e-003;
+    backlashes[1][3] = -7.3159579332418835e-006;
     
     // Longitudinal Left
     //  0 400
@@ -81,10 +81,10 @@ public:
     // 15  2
     // 20  4
     // 25  4
-    offsets[2][0] = -3.6507936507935960e+000;
-    offsets[2][1] = 1.3153439153438717e+000;
-    offsets[2][2] = -8.7936507936503400e-002;
-    offsets[2][3] = 1.9259259259258088e-003;
+    backlashes[2][0] = -3.6507936507935960e+000;
+    backlashes[2][1] = 1.3153439153438717e+000;
+    backlashes[2][2] = -8.7936507936503400e-002;
+    backlashes[2][3] = 1.9259259259258088e-003;
 
     // Rotary Left
     //   0 170
@@ -101,10 +101,10 @@ public:
     //  90 -4
     // 135 -2
     // 180 -4
-    offsets[3][0] = -7.9428571428571430e+000;
-    offsets[3][1] = 1.3756613756613744e-002;
-    offsets[3][2] = 7.0546737213403880e-004;
-    offsets[3][3] = -3.6579789666209417e-006;
+    backlashes[3][0] = -7.9428571428571430e+000;
+    backlashes[3][1] = 1.3756613756613744e-002;
+    backlashes[3][2] = 7.0546737213403880e-004;
+    backlashes[3][3] = -3.6579789666209417e-006;
   }
 
   void write(uint8_t num, uint16_t servoVal) {

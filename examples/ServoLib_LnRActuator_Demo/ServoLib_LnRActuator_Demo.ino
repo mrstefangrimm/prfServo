@@ -6,7 +6,7 @@ This example uses the Adafruit 16-channel PWM & Servo Shield
 The program demonstrates sub-millimeter accuracy of the LnR-Actuator
 -> https://www.instructables.com/id/Linear-and-Rotation-Actuator/
 
-Written by Stefan Grimm, 2019.
+Written by Stefan Grimm, 2019 - 2021.
 Released into the public domain.
 */
 
@@ -22,7 +22,7 @@ public:
     _servo1.attach(9);
   }
 
-  void get(float** params, float** offsets) const {
+  void get(float** params, float** backlashes) const {
     // LnR-Actuator, measured values (lng)
     // params
     // 0  2180
@@ -30,7 +30,7 @@ public:
     // 20 1460
     // 30 1225
     // 40  970
-    // offsets
+    // backlashes
     // 0   0
     // 10  0
     // 20  0
@@ -41,14 +41,14 @@ public:
     params[0][1] = -5.2488095238095240e+001;
     params[0][2] = 1.0892857142857144e+000;
     params[0][3] = -1.3333333333333334e-002;
-    offsets[0][0] = 1.4285714285714280e-001;
-    offsets[0][1] = -1.7857142857142860e-001;
-    offsets[0][2] = 1.0714285714285714e-002;
+    backlashes[0][0] = 1.4285714285714280e-001;
+    backlashes[0][1] = -1.7857142857142860e-001;
+    backlashes[0][2] = 1.0714285714285714e-002;
 
     // transformation for the rotation is f(x) = x
     params[1][0] = 1880;
     params[1][1] = -4;
-    offsets[1][0] = 0;    
+    backlashes[1][0] = 0;    
   }
 
   void write(uint8_t num, uint16_t servoVal) {

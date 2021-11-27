@@ -111,7 +111,7 @@ void setup() {
 
 ###  prfServo and prfServo2
 
-Whereas the class `prfServo` is stateless and uses a linear transformation, the class `prfServo2` is nonlinear and stateful. It lets you compensate the mechanical play. If direction changes, an offset polynomial is added.
+Whereas the class `prfServo` is stateless and uses a linear transformation, the class `prfServo2` is nonlinear and stateful. It lets you compensate the mechanical play. If direction changes, an backlash polynomial is added.
 
 **prfServo**
 
@@ -119,7 +119,7 @@ Whereas the class `prfServo` is stateless and uses a linear transformation, the 
 
 **prfServo2**
 
-![ y_{n} = \begin{cases}p_{n,0} + p_{n,1}x_{n} + p_{n,2}x_{n}^{2} + p_{n,3}x_{n}^{3} & x_{n} > x_{n-1}\\p_{n,0} + p_{n,1}x_{n} + p_{n,2}x_{n}^{2} + p_{n,3}x_{n}^{3} + o_{n,0} + o_{n,1}x_{n} + o_{n,2}x_{n}^{2} + o_{n,3}x_{n}^{3} & x_{n} < x_{n-1}\end{cases}](res/Tex2Img_1563614995.png)
+![ y_{n} = \begin{cases}p_{n,0} + p_{n,1}x_{n} + p_{n,2}x_{n}^{2} + p_{n,3}x_{n}^{3} & x_{n} > x_{n-1}\\p_{n,0} + p_{n,1}x_{n} + p_{n,2}x_{n}^{2} + p_{n,3}x_{n}^{3} + b_{n,0} + b_{n,1}x_{n} + b_{n,2}x_{n}^{2} + b_{n,3}x_{n}^{3} & x_{n} < x_{n-1}\end{cases}](res/Tex2Img_1563614995.png)
 
 
 ### Template parameters
@@ -181,6 +181,9 @@ prfServo was written in 2018 for the *[LnR Actuator](https://www.instructables.c
 In 2019, prfServo2 was added to not only support a correct transformation but also compensate the mechanical play.
 
 ## Change History
+
+### 0.0.1.3
+- Use of the term backlash instead of offset in implementation and in documentation.
 
 ### 0.0.1.2
 - Update documentation and examples
