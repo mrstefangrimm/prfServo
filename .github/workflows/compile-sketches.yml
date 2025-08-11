@@ -24,3 +24,4 @@ jobs:
           libraries: |
             - source-url: https://github.com/mmurdoch/arduinounit.git
             - source-url: https://github.com/arduino-libraries/Servo.git
+            - source-path: .
