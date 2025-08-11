@@ -3,6 +3,7 @@ name: Compile Sketches
 on:
   - push
   - pull_request
+  - workflow_dispatch
 
 jobs:
   compile-sketches:
@@ -20,7 +21,12 @@ jobs:
           sketch-paths: |
             - tests/Test
             - tests/Test2
-            - examples/ServoLib_Demo   
+            - examples/ServoLib_Demo
+            - examples/ServoLib_LnRActuator_Demo
+            - examples/ServoLib_PolynomialFit_Demo
+            - examples/ServoShield_Demo
+            - examples/ServoShield_LnRActuator_Demo
+            - examples/ServoShield_PencilLeadDrive
           libraries: |
             - source-url: https://github.com/mmurdoch/arduinounit.git
             - source-url: https://github.com/arduino-libraries/Servo.git
