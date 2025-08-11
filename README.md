@@ -1,3 +1,5 @@
+[![Compile Sketches](https://github.com/mrstefangrimm/prfServo/actions/workflows/compile-sketches.yml/badge.svg)](https://github.com/mrstefangrimm/prfServo/actions/workflows/compile-sketches.yml)
+
 # prfServo
 
 Arduino library to control multiple servo motors. A polynomial transformation up to a degree of 3 transforms the used target position to the value written to the servo. The prfServo library is a wrapper for existing servo libraries such as *[Servo](https://www.arduino.cc/en/Reference/Servo)* or the *[Adafruit Servo Shield](https://www.adafruit.com/product/1411)*.
