@@ -31,4 +31,5 @@ jobs:
             - source-url: https://github.com/mmurdoch/arduinounit.git
             - source-url: https://github.com/arduino-libraries/Servo.git
             - source-url: https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library.git
+            - source-url: https://github.com/adafruit/Adafruit_BusIO.git
             - source-path: .
