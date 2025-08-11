@@ -20,4 +20,7 @@ jobs:
           sketch-paths: |
             - tests/Test
             - tests/Test2
-            - examples/ServoLib_Demo           
+            - examples/ServoLib_Demo   
+          libraries: |
+            - source-url: https://github.com/mmurdoch/arduinounit.git
+            - source-url: https://github.com/arduino-libraries/Servo.git
