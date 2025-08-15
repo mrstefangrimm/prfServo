@@ -19,7 +19,10 @@
 #ifndef _PRFSERVO_H
 #define _PRFSERVO_H
 
-#include "Arduino.h"
+#ifndef Arduino_h
+#include <Arduino.h>
+#endif
+
 #include "PolynomialRegression.h"
 
 template<typename TOUT = uint16_t, typename TMATH = float>
@@ -121,13 +124,13 @@ class prfServo {
         delete(_params[i]);
       }
       delete(_params);
-      _params = 0;
+      _params = nullptr;
     }
   }  
   bool _isDisposed() const { return _params == 0; }
   int _order(int num) const { return ( (TORD)(_orderDesc << (2 * (N-1 - num)))) >> (2 * (N-1)); }
   prfServoImplBase<TOUT, TMATH>* _pImpl;
-  TMATH** _params;
+  TMATH** _params = nullptr;
   const TORD _orderDesc;
   static const uint8_t N = sizeof(TORD) * 4;
 

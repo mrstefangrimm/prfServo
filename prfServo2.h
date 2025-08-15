@@ -19,7 +19,9 @@
 #ifndef _PRFSERVO2_H
 #define _PRFSERVO2_H
 
-#include "Arduino.h"
+#ifndef Arduino_h
+#include <Arduino.h>
+#endif
 
 template<typename TOUT = uint16_t, typename TMATH = float>
 class prfServo2ImplBase {
@@ -123,22 +125,22 @@ class prfServo2 {
         delete(_params[i]);
       }
       delete(_params);
-      _params = 0;
+      _params = nullptr;
     }
     if (_backlashes != 0) {
       for (int i = 0; i < N; ++i) {
         delete(_backlashes[i]);
       }
       delete(_backlashes);
-      _backlashes = 0;
+      _backlashes = nullptr;
     }
   }
   bool _isDisposed() const { return _params == 0; }
   int _order(int num) const { return ( (TORD)(_orderDesc << (2 * (N-1 - num)))) >> (2 * (N-1)); }
   int _orderBacklash(int num) const { return ((TORD)(_orderDescBacklash << (2 * (N - 1 - num)))) >> (2 * (N - 1)); }
   prfServo2ImplBase<TOUT, TMATH>* _pImpl;
-  TMATH** _params;
-  TMATH** _backlashes;
+  TMATH** _params = nullptr;
+  TMATH** _backlashes = nullptr;
   const TORD _orderDesc;
   const TORD _orderDescBacklash;
   static const uint8_t N = sizeof(TORD) * 4;
